@@ -1,0 +1,16 @@
+.scatterplot {
+  height: auto;
+  max-width: 100%;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tooltip {
+  transition: filter 250ms;
+  position: absolute;
+  border-radius: var(--spacing-1);
+  padding: var(--spacing-1);
+  minWidth: 250px;
+  border-style: solid;
+  border-width: 1px 1px 1px var(--spacing-2);
+}
