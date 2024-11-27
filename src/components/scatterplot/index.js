@@ -62,7 +62,7 @@ export const Scatterplot = ({ data, width, height }) => {
         onMouseOut={ () => setHoveredPoint(null) }
       />
     </Fragment>
-  )), [hoveredPoint]);
+  )), [data, hoveredPoint]);
 
   // memoized tooltip component
   const Tooltip = useCallback(({ datum }) => {
@@ -93,6 +93,7 @@ export const Scatterplot = ({ data, width, height }) => {
         width={ width }
         height={ height }
         viewBox={ `0 0 ${ width } ${ height }` }
+        onMouseOut={ () => setHoveredPoint(null) }
       >
         <Points />
       </svg>

@@ -107,6 +107,11 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      '@components': path.resolve(__dirname, 'src/components/'),
+      '@data': path.resolve(__dirname, 'src/data/'),
+      '@images': path.resolve(__dirname, 'src/images/'),
+    },
   },
 
   devtool: 'source-map',

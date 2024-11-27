@@ -1,0 +1,63 @@
+.dataTable {
+  overflow: scroll;
+  border: 1px solid #333;
+  tr:nth-of-type(1) th span {
+    cursor: pointer;
+    &:hover { /* sort of highlights the sort arrow */
+      filter: brightness(1.25);
+    }
+  }
+  th {
+    borderBottom: 1px solid #333;
+    borderRight: 1px solid #333;
+    p: 1;
+  }
+  tbody {
+    borderBottom: 1px solid #333;
+  }
+  td {
+    borderBottom: 1px solid #333;
+    borderRight: 1px solid #333;
+    p: 0.5;
+    whiteSpace: nowrap;
+    overflow: hidden;
+    textOverflow: ellipsis;
+  }
+  tr:first-of-type th { fontSize: 100% }
+  tr:nth-of-type(2) th { fontSize: 75% }
+  tfoot {
+    color: #666;
+  }
+  tfoot th {
+    fontWeight: normal;
+  }
+  tfoot tr:first-of-type th { fontSize: 75% }
+  tfoot tr:nth-of-type(2) th { fontSize: 100% }
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1);
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-2);
+  border-radius: var(--spacing-1);
+  align-items: center;
+  background: rgb(from var(--color-primary) r g b / 0.2);
+  width: 100%;
+  .paginationButtons {
+    display: flex;
+    gap: 1px;
+    button {
+      font-size: 100%;
+      cursor: pointer;
+    }
+  }
+}

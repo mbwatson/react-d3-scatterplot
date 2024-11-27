@@ -2,7 +2,9 @@
   width: 100%;
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: flex-start;
   background-color: var(--color-container-bg);
   border-radius: var(--spacing-2);
+  overflow: hidden;
 }

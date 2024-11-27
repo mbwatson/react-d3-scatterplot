@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 export const PointHighlight = ({ cx, cy }) => (
   <circle
     r={ 10 }
-    fill="transparent"
+    fill="crimson"
     stroke="crimson"
     strokeWidth="2"
     cx={ cx }
