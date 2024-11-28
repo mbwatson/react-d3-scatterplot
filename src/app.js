@@ -1,62 +1,23 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Container } from './components/container';
 import { Scatterplot } from './components/scatterplot';
 import {
   ClearFiltersButton,
   DataTable,
   Pagination,
+  RowCount,
   TableToolbar,
 } from './components/data-table';
-import {
-  getCoreRowModel,
-  getFacetedMinMaxValues,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
-import data from './data/rsvnet_hospitalization.csv';
-import columns from './data/rsvnet-hospitalization-columns.js';
-
-
-const dataWithIDs = data.map(d => ({ ...d, id: self.crypto.randomUUID() }));
+import { useData } from '@data';
 
 export const App = () => {
-  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 25 })
-  const [sorting, setSorting] = useState([])
-  const [columnFilters, setColumnFilters] = useState([])
-
-  const table = useReactTable({
-    data: dataWithIDs,
-    columns: columns,
-    debugTable: true,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    onSortingChange: setSorting,
-    onPaginationChange: setPagination,
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
-    getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    state: {
-      columnFilters,
-      pagination,
-      sorting,
-    },
-  })
-  
-  const graphData = table.getFilteredRowModel().rows
-    .map(d => d.original);
-
+  const { data } = useData();
+ 
   return (
     <Fragment>
       <Container>
         <Scatterplot
-          data={ graphData }
+          data={ data.graph }
           width={ 1000 }
           height={ 600 }
         />
@@ -64,15 +25,15 @@ export const App = () => {
 
       <Container>
         <TableToolbar>
-          <span>{ graphData.length } rows</span>
-          <Pagination table={ table } />
-          <ClearFiltersButton table={ table } />
+          <RowCount table={ data.table } />
+          <Pagination table={ data.table } />
+          <ClearFiltersButton table={ data.table } />
         </TableToolbar>
 
-        <DataTable table={ table } />
+        <DataTable table={ data.table } />
         
         <TableToolbar>
-          <Pagination table={ table } />
+          <Pagination table={ data.table } />
         </TableToolbar>
       </Container>
     </Fragment>

@@ -50,14 +50,12 @@
   gap: var(--spacing-2);
   border-radius: var(--spacing-1);
   align-items: center;
-  background: rgb(from var(--color-primary) r g b / 0.2);
-  width: 100%;
   .paginationButtons {
     display: flex;
     gap: 1px;
     button {
-      font-size: 100%;
       cursor: pointer;
+      font-size: 100%;
     }
   }
 }

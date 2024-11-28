@@ -12,7 +12,7 @@ export const TableToolbar = ({ children }) => {
     .reduce((acc, item, i) => {
       acc.push(item);
       if (i + 1 < toolbarItems.length) {
-        acc.push(<Divider />)
+        acc.push(<Divider key={ `div-${ i }` }/>)
       }
       return acc;
     }, []);

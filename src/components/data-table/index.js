@@ -64,14 +64,15 @@ export const DataTable = ({ table, style = {} }) => {
         )) }
       </tfoot>          
     </table>
-  )
-}
+  );
+};
 
 DataTable.propTypes = {
   style: PropTypes.object,
   table: PropTypes.object.isRequired,
-}
+};
 
-export * from './pagination';
-export * from './table-toolbar';
 export * from './clear-filters-button';
+export * from './pagination';
+export * from './row-count';
+export * from './table-toolbar';
