@@ -1,7 +1,12 @@
 import { Fragment, useState } from 'react';
 import { Container } from './components/container';
 import { Scatterplot } from './components/scatterplot';
-import { DataTable, Pagination, TableToolbar } from './components/data-table';
+import {
+  ClearFiltersButton,
+  DataTable,
+  Pagination,
+  TableToolbar,
+} from './components/data-table';
 import {
   getCoreRowModel,
   getFacetedMinMaxValues,
@@ -44,7 +49,8 @@ export const App = () => {
     },
   })
   
-  const graphData = table.getFilteredRowModel().rows.map(d => d.original);
+  const graphData = table.getFilteredRowModel().rows
+    .map(d => d.original);
 
   return (
     <Fragment>
@@ -59,8 +65,8 @@ export const App = () => {
       <Container>
         <TableToolbar>
           <span>{ graphData.length } rows</span>
-          <span>&#47;&#47;</span> 
           <Pagination table={ table } />
+          <ClearFiltersButton table={ table } />
         </TableToolbar>
 
         <DataTable table={ table } />

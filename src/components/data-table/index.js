@@ -74,3 +74,4 @@ DataTable.propTypes = {
 
 export * from './pagination';
 export * from './table-toolbar';
+export * from './clear-filters-button';
