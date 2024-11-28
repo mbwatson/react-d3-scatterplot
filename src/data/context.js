@@ -1,7 +1,3 @@
-/*
-  this context provider is responsible for application data.
-  it fetches, massages, assembles, and--of course--provides data.
-*/
 import {
   createContext,
   useContext,
@@ -23,7 +19,11 @@ import {
 import data from './rsvnet_hospitalization.csv';
 import columns from './rsvnet-hospitalization-columns.js';
 
-const dataWithIDs = data.map(d => ({ ...d, id: self.crypto.randomUUID() }));
+const dataWithIDs = data.map(d => ({
+  ...d,
+  location: String(d.location).padStart(2, '0'),
+  id: self.crypto.randomUUID(),
+}));
 
 const DataContext = createContext({ })
 export const useData = () => useContext(DataContext)
