@@ -50,7 +50,7 @@ export const Scatterplot = ({ data, width, height }) => {
   const delaunay = useMemo(() => {
     const formattedData = data.map((d) => [x(new Date(d.date)), y(d.value)]);
     return Delaunay.from(formattedData);
-  }, [x, y]);
+  }, []);
 
   const voronoi = useMemo(() => {
     return delaunay.voronoi([0, 0, width, height]);
@@ -72,7 +72,7 @@ export const Scatterplot = ({ data, width, height }) => {
         onMouseOver={ () => setHoveredPoint(d) }
       />
     </Fragment>
-  )), [data, hoveredPoint, x, y]);
+  )), [data, hoveredPoint]);
 
   const VoronoiMesh = useCallback(() => (
     <g className="voronoi">
