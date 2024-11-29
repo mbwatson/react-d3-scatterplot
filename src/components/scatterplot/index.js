@@ -50,7 +50,7 @@ export const Scatterplot = ({ data, width, height }) => {
   const delaunay = useMemo(() => {
     const formattedData = data.map((d) => [x(new Date(d.date)), y(d.value)]);
     return Delaunay.from(formattedData);
-  }, [data, x, y]);
+  }, [x, y]);
 
   const voronoi = useMemo(() => {
     return delaunay.voronoi([0, 0, width, height]);
@@ -65,12 +65,11 @@ export const Scatterplot = ({ data, width, height }) => {
         )
       }
       <circle
-        r={ 5 }
+        r={ 4 }
         cy={ y(d.value) }
         cx={ x(new Date(d.date)) }
         fill={ color(d.location) }
         onMouseOver={ () => setHoveredPoint(d) }
-        onMouseOut={ () => setHoveredPoint(null) }
       />
     </Fragment>
   )), [data, hoveredPoint, x, y]);
@@ -81,11 +80,11 @@ export const Scatterplot = ({ data, width, height }) => {
         <path
           key={i}
           d={voronoi.renderCell(i)}
-          stroke="grey"
+          stroke="#234"
           fill="transparent"
           opacity={0.1}
-          onMouseOver={console.log}
-          onMouseOut={console.log}
+          onMouseOver={ () => setHoveredPoint(d) }
+          onMouseOut={ () => setHoveredPoint(null) }
         />
       ))}
     </g>
@@ -122,8 +121,8 @@ export const Scatterplot = ({ data, width, height }) => {
         viewBox={ `0 0 ${ width } ${ height }` }
         onMouseOut={ () => setHoveredPoint(null) }
       >
-        <VoronoiMesh />
         <Points />
+        <VoronoiMesh />
       </svg>
       <Tooltip datum={ hoveredPoint } />
     </Fragment>

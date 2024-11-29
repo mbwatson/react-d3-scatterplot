@@ -8,6 +8,7 @@ export const PointHighlight = ({ cx, cy }) => (
     strokeWidth="2"
     cx={ cx }
     cy={ cy }
+    style={{ pointerEvents: 'nope' }}
   >
     <animate attributeName="r" begin="0s" dur="1s" keyTimes="0;1" values="2;22" repeatCount="indefinite" />
     <animate attributeName="opacity" begin="0s" dur="1s" from="100%" to="0%" repeatCount="indefinite" />
