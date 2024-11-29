@@ -4,6 +4,8 @@ import * as d3 from 'd3';
 import classes from './scatterplot.module.css';
 import { PointHighlight } from './point-highlight';
 
+const { Delaunay } = d3;
+
 const MARGIN = {
             top: 36,
   left: 72,          right: 48,
@@ -15,7 +17,7 @@ export const Scatterplot = ({ data, width, height }) => {
   const [hoveredPoint, setHoveredPoint] = useState(null);
 
   const locations = useMemo(() => new Set(data.map(d => d.location)), []);
-  const color = useCallback(d3.scaleOrdinal().domain(locations).range(d3.schemeDark2), [locations]);
+  const color = useCallback(d3.scaleOrdinal().domain(locations).range(d3.schemeObservable10), [locations]);
 
   // x scale
   const dateBounds = d3.extent(data.map(d => new Date(d.date)));
@@ -45,6 +47,15 @@ export const Scatterplot = ({ data, width, height }) => {
       .call(d3.axisLeft(y));
   }, []);
 
+  const delaunay = useMemo(() => {
+    const formattedData = data.map((d) => [x(new Date(d.date)), y(d.value)]);
+    return Delaunay.from(formattedData);
+  }, [data, x, y]);
+
+  const voronoi = useMemo(() => {
+    return delaunay.voronoi([0, 0, width, height]);
+  }, [delaunay, width, height]);
+
   // memoize all points (+highlight) component
   const Points = useCallback(() => data.map(d => (
     <Fragment key={ d.id }>
@@ -62,7 +73,23 @@ export const Scatterplot = ({ data, width, height }) => {
         onMouseOut={ () => setHoveredPoint(null) }
       />
     </Fragment>
-  )), [data, hoveredPoint]);
+  )), [data, hoveredPoint, x, y]);
+
+  const VoronoiMesh = useCallback(() => (
+    <g className="voronoi">
+      { data.map((d, i) => (
+        <path
+          key={i}
+          d={voronoi.renderCell(i)}
+          stroke="grey"
+          fill="transparent"
+          opacity={0.1}
+          onMouseOver={console.log}
+          onMouseOut={console.log}
+        />
+      ))}
+    </g>
+  ), []);
 
   // memoized tooltip component
   const Tooltip = useCallback(({ datum }) => {
@@ -95,6 +122,7 @@ export const Scatterplot = ({ data, width, height }) => {
         viewBox={ `0 0 ${ width } ${ height }` }
         onMouseOut={ () => setHoveredPoint(null) }
       >
+        <VoronoiMesh />
         <Points />
       </svg>
       <Tooltip datum={ hoveredPoint } />
