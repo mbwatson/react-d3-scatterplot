@@ -73,6 +73,7 @@ DataTable.propTypes = {
 };
 
 export * from './clear-filters-button';
+export * from './column-select';
 export * from './pagination';
 export * from './row-count';
 export * from './table-toolbar';

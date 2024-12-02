@@ -3,6 +3,7 @@ import { Container } from './components/container';
 import { Scatterplot } from './components/scatterplot';
 import {
   ClearFiltersButton,
+  ColumnsSelect,
   DataTable,
   Pagination,
   RowCount,
@@ -27,6 +28,7 @@ export const App = () => {
         <TableToolbar>
           <RowCount table={ data.table } />
           <Pagination table={ data.table } />
+          <ColumnsSelect table={ data.table } />
           <ClearFiltersButton table={ data.table } />
         </TableToolbar>
 

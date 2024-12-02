@@ -25,23 +25,37 @@ const dataWithIDs = data.map(d => ({
   id: self.crypto.randomUUID(),
 }));
 
-const DataContext = createContext({ })
-export const useData = () => useContext(DataContext)
+const DataContext = createContext({ });
+export const useData = () => useContext(DataContext);
+
+const initialColumnVisibilityState = columns => {
+  const visibilityMap = columns.reduce((acc, col) => {
+    acc[col.accessorKey] = true;
+    return acc;
+  }, {});
+  visibilityMap.id = false;
+  return visibilityMap;
+}
 
 export const DataProvider = ({ children }) => {
-  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 25 })
-  const [sorting, setSorting] = useState([])
-  const [columnFilters, setColumnFilters] = useState([])
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 25 });
+  const [sorting, setSorting] = useState([]);
+  const [columnFilters, setColumnFilters] = useState([]);
+
+  const [columnVisibility, setColumnVisibility] = useState(initialColumnVisibilityState(columns));
 
   const table = useReactTable({
     data: dataWithIDs,
     columns: columns,
     debugTable: true,
+    debugHeaders: true,
+    debugColumns: true,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     onPaginationChange: setPagination,
     getFacetedRowModel: getFacetedRowModel(),
@@ -49,24 +63,24 @@ export const DataProvider = ({ children }) => {
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     state: {
       columnFilters,
+      columnVisibility,
       pagination,
       sorting,
     },
   })
 
-  const filterCount = table.getAllLeafColumns()
-    .filter(col => col.getIsFiltered()).length
+  const filterCount = table.getAllLeafColumns().filter(col => col.getIsFiltered()).length
 
-  const graphData = table.getFilteredRowModel().rows
-    .map(d => d.original);
+  const graphData = table.getFilteredRowModel().rows.map(d => d.original);
 
   return (
     <DataContext.Provider value={{
       data: {
         graph: graphData,
         table,
-        columnFilters, setColumnFilters,
-        sorting, setSorting,
+        columnFilters,
+        columnVisibility,
+        sorting,
       },
       filterCount,
     }}>{ children }</DataContext.Provider>

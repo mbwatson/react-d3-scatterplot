@@ -3,6 +3,11 @@ import { createColumnHelper } from '@tanstack/react-table';
 const columnHelper = createColumnHelper();
 
 const columns = [
+  columnHelper.accessor('id', {
+    cell: info => info.getValue(),
+    header: 'ID',
+    footer: 'ID',
+  }),
   columnHelper.accessor('location', {
     cell: info => info.getValue(),
     header: 'Location',

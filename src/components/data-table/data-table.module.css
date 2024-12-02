@@ -59,3 +59,39 @@
     }
   }
 }
+
+.columnsSelect {
+  position: relative;
+  button {
+    anchor-name: --trigger;
+  }
+  .tempPopover {
+    background-color: color-mix(in lab, var(--color-container-bg), #fff);
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%);
+    border: 1px solid #999;
+    border-radius: var(--spacing-1);
+    padding: var(--spacing-1);
+  }
+
+  [popover] {
+    margin: 0;
+    padding: var(--spacing-1) var(--spacing-2);
+    border: 0;
+    position-anchor: --trigger;
+    top: anchor(--trigger bottom);
+    left: anchor(--trigger left);
+  }
+  
+  button, [popover] {
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+}
+
