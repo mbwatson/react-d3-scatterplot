@@ -16,6 +16,11 @@ export const App = () => {
  
   return (
     <Fragment>
+      <Container flexDirection="row">
+        <span>Filename:</span>
+        <pre>src/data/visualization/data-goldstandard/rsvnet_hospitalization.csv</pre>
+      </Container>
+
       <Container>
         <Scatterplot
           data={ data.graph }

@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import classes from './container.module.css';
 
-export const Container = ({ children }) => {
+export const Container = ({ children, flexDirection = 'column' }) => {
+  const containerClasses = [classes.container, classes[flexDirection]].join(' ');
+  
   return (
-    <div className={ classes.container }>
+    <div className={ containerClasses }>
       { children }
     </div>
   );
@@ -11,4 +13,5 @@ export const Container = ({ children }) => {
 
 Container.propTypes = {
   children: PropTypes.node,
+  flexDirection: PropTypes.oneOf(['row', 'column']),
 };

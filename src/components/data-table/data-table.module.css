@@ -53,11 +53,12 @@
   .paginationButtons {
     display: flex;
     gap: 1px;
-    button {
-      cursor: pointer;
-      font-size: 100%;
-    }
   }
+}
+
+button:not(:disabled), select {
+  cursor: pointer;
+  font-size: 100%;
 }
 
 .columnsSelect {
